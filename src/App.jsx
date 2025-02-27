@@ -7,9 +7,13 @@ export default function XLogin() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!username || !password) {
-      setMessage("Both fields are required.");
-    } else if (username === "user" && password === "password") {
+      setMessage("Invalid username or password");
+      return;
+    }
+
+    if (username === "user" && password === "password") {
       setMessage("Welcome, user!");
     } else {
       setMessage("Invalid username or password");
@@ -17,34 +21,32 @@ export default function XLogin() {
   };
 
   return (
-    <center>
-        <h2 className="text-2xl font-bold text-center mb-4">Login Page</h2>
-        {message && (
-          <p className={`text-center mb-4 ${message === "Welcome, user!" ? "text-green-600" : "text-red-600"}`}>
-            {message}
-          </p>
-        )}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <label className="font-semibold">
-            Username:
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </label>
-          <br/>
-          <label className="font-semibold">
-            Password:
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          <br/>
-          <button type="submit"> Submit </button>
-        </form>
-  </center>
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>Login Page</h1>
+      {message && <p style={{ color: message === "Welcome, user!"}}>{message}</p>}
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="username">Username:</label>
+          <input
+            id="username"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <br />
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <br />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   );
 }
